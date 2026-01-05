@@ -52,9 +52,6 @@ public class ExpenseController {
                     }
                     break;
                 default:
-                    // If filter is unknown, return all or bad request? 
-                    // Let's assume return all if filter is invalid or just ignore.
-                    // But requirement implies specific filters.
                     break;
             }
             return ResponseEntity.ok(expenseService.getExpensesByDateRange(start, end));

@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+  # MySQL Database Service
   mysqldb:
     image: mysql:8.0
     container_name: expense-tracker-mysql
@@ -8,12 +7,42 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: expense_tracker
-      MYSQL_USER: root
+      MYSQL_USER: expenseuser  # Changed from 'root' - see explanation below
       MYSQL_PASSWORD: 123456
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - expense-network
+
+  # Spring Boot Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: expense-tracker-app
+    restart: always
+    ports:
+      - "8080:8080"  # Adjust if your app uses a different port
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/expense_tracker
+      SPRING_DATASOURCE_USERNAME: expenseuser
+      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    networks:
+      - expense-network
+
+networks:
+  expense-network:
+    driver: bridge
 
 volumes:
   mysql_data:

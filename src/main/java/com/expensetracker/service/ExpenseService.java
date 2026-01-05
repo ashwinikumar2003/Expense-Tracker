@@ -34,7 +34,7 @@ public class ExpenseService {
         expense.setTitle(request.getTitle());
         expense.setDescription(request.getDescription());
         expense.setAmount(request.getAmount());
-        expense.setDate(request.getDate());
+        expense.setDate((request.getDate()!=null) ? request.getDate() : LocalDate.now());
         expense.setCategory(request.getCategory());
         expense.setUser(user);
         return expenseRepository.save(expense);
