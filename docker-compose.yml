@@ -28,7 +28,7 @@ services:
     container_name: expense-tracker-app
     restart: always
     ports:
-      - "8080:8080"  # Adjust if your app uses a different port
+      - "8082:8080"  # Adjust if your app uses a different port
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/expense_tracker
       SPRING_DATASOURCE_USERNAME: expenseuser
