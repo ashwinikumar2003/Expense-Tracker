@@ -71,3 +71,5 @@ Run unit and integration tests (uses in-memory H2 database):
 ```bash
 ./mvnw test
 ```
+
+Added Jenkinsfile
