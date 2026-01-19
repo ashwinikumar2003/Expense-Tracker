@@ -35,7 +35,7 @@ public class AuthController {
 
     @GetMapping("/test")
     public ResponseEntity<?> testServerUp(){
-        return ResposeEntity.ok(new MessageResponse("The Server is up and running!!"));
+        return ResponseEntity.ok(new MessageResponse("The Server is up and running!!"));
     }
 
     @PostMapping("/login")
