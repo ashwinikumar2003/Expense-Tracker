@@ -33,6 +33,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @GetMapping("/test")
+    public ResponseEntity<?> testServerUp(){
+        return ResposeEntity.ok(new MessageResponse("The Server is up and running!!"));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
